@@ -1,16 +1,16 @@
 import React from 'react';
 
-import TodoListItem from './todo-list-item';
+import TodoListItem from '../todo-list-item/todo-list-item';
 
 const TodoList = ({ todos }) => {
 
   const items = todos.map((item) => {
 
-    const { description, important } = item;
+    const { description, important, key } = item;
 
     return (
-      <li>
-        <TodoListItem 
+      <li key={key} className="list-group-item">
+        <TodoListItem
           description={ description }
           important={ important }
         />
@@ -19,7 +19,7 @@ const TodoList = ({ todos }) => {
   }); 
 
   return (
-    <ul>
+    <ul className="list-group todo-list">
       { items }
     </ul>
   );

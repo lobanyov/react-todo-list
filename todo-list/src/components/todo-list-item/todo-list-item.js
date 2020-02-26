@@ -5,7 +5,7 @@ import React from 'react';
 const TodoListItem = ({ description, important }) => {
   
   const style = {
-    color: important ? 'lightgreen' : 'black',
+    color: important ? 'coral' : 'black',
     fontWeight: important ? 'bold' : 'normal', 
   }
 
