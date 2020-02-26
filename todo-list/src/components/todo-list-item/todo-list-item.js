@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './todo-list-item.scss';
+
 // const { description } = props;
 
 const TodoListItem = ({ description, important }) => {
@@ -9,7 +11,7 @@ const TodoListItem = ({ description, important }) => {
     fontWeight: important ? 'bold' : 'normal', 
   }
 
-  return <span style={style}>{ description }</span>;
+  return <span className="todo-list-item" style={style}>{ description }</span>;
 }
 
 export default TodoListItem;
