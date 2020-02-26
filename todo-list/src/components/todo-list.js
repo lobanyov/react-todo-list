@@ -2,15 +2,27 @@ import React from 'react';
 
 import TodoListItem from './todo-list-item';
 
-const TodoList = () => {
+const TodoList = ({ todos }) => {
+
+  const items = todos.map((item) => {
+
+    const { description, important } = item;
+
+    return (
+      <li>
+        <TodoListItem 
+          description={ description }
+          important={ important }
+        />
+      </li>
+    );
+  }); 
+
   return (
     <ul>
-      <li><TodoListItem description="[SDLRF-4574]" /></li>
-      <li><TodoListItem 
-        description="[SDLRF-6055]"
-        important={true} /></li>
+      { items }
     </ul>
   );
 }
 
-export default TodoList;
+export default TodoList; 
