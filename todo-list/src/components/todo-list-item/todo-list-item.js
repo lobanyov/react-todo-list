@@ -4,8 +4,26 @@ import './todo-list-item.scss';
 
 class TodoListItem extends Component {
 
+  state = {
+    done: false,
+  }
+
+  onLabelClick = () => {
+    
+    const { done } = this.state;
+
+    if (done) {
+      this.setState({ done: false });
+    } else {
+      this.setState({ done: true });
+    }
+  }
+
   render() {
     // this.props - include all properties
+
+    let classNames = 'todo-list-item';
+    const { done } = this.state;
 
     const { description, important } = this.props;
 
@@ -13,12 +31,17 @@ class TodoListItem extends Component {
       color: important ? 'coral' : 'black',
       fontWeight: important ? 'bold' : 'normal', 
     };
+
+    if (done) {
+      classNames += ' done';
+    }
     
     return (
-      <span className="todo-list-item">
+      <span className={ classNames }>
         <span 
           className="todo-list-item-label"
-          style={style}>
+          style={style}
+          onClick={ this.onLabelClick }>
             { description }
         </span>
 
