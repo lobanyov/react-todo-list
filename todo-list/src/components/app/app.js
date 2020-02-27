@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import './app.scss';
 
@@ -7,26 +7,66 @@ import SearchPanel from '../search-panel';
 import TodoList from '../todo-list';
 import ItemStatusFilter from '../item-status-filter';
 
-const App = () => {
+// const App = () => {
 
-  const todoData = [
-    { description: '11-00-AM Meeting', important: true, key: '_QFY_23' },
-    { description: '13-00-PM Lunch', important: false, key: '_TNY_41' },
-    { description: '15-00-PM Code review', important: true, key: '_MVB_19' },
-    { description: '17-00-PM React + Redux', important: false, key: '_KZX_17' }
-  ];
+//   const todoData = [
+//     { description: '11-00-AM Meeting', important: true, key: '_QFY_23' },
+//     { description: '13-00-PM Lunch', important: false, key: '_TNY_41' },
+//     { description: '15-00-PM Code review', important: true, key: '_MVB_19' },
+//     { description: '17-00-PM React + Redux', important: false, key: '_KZX_17' }
+//   ];
 
-  return (
-    <div className="todo-app">
-      <AppHeader toDo={1} done={3}/>
-      <div className="top-panel d-flex">
-        <SearchPanel />
-        <ItemStatusFilter />
+//   const onDeleted = (key) => console.log('Deleted: ', key);
+
+//   return (
+//     <div className="todo-app">
+//       <AppHeader toDo={1} done={3}/>
+//       <div className="top-panel d-flex">
+//         <SearchPanel />
+//         <ItemStatusFilter />
+//       </div>
+
+//       <TodoList 
+//         todos={todoData}
+//         onDeleted={onDeleted} /> 
+//     </div>
+//   );
+// }
+
+class App extends Component {
+
+  state = {
+    todoData: [
+      { description: '11-00-AM Meeting', important: true, key: '_QFY_23' },
+      { description: '13-00-PM Lunch', important: false, key: '_TNY_41' },
+      { description: '15-00-PM Code review', important: true, key: '_MVB_19' },
+      { description: '17-00-PM React + Redux', important: false, key: '_KZX_17' }
+    ]
+  }
+
+  onDeleted = (key) => {
+    const { todoData } = this.state;
+
+    const deletedItem = todoData.find((item) => item.id === key);
+
+    console.log(deletedItem);
+  }
+
+  render() {
+    return (
+      <div className="todo-app">
+        <AppHeader toDo={1} done={3}/>
+        <div className="top-panel d-flex">
+          <SearchPanel />
+          <ItemStatusFilter />
+        </div>
+  
+        <TodoList 
+          todos={this.state.todoData}
+          onDeleted={this.onDeleted} /> 
       </div>
-
-      <TodoList todos={todoData} /> 
-    </div>
-  );
+    );
+  }
 }
 
 export default App;

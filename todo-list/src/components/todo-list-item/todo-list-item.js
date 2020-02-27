@@ -6,54 +6,78 @@ class TodoListItem extends Component {
 
   state = {
     done: false,
+    important: false,
   }
 
-  onLabelClick = () => {
-    
-    const { done } = this.state;
+  markTaskAsImportant = () => {
 
-    if (done) {
-      this.setState({ done: false });
-    } else {
-      this.setState({ done: true });
-    }
+    /*------------------------------------------*/
+    /*--- this.setState - is an async method ---*/
+    /*------------------------------------------*/
+
+    // const { important } = this.state;
+
+    // if (!important) {
+    //   this.setState({
+    //     important: true,
+    //   });
+    // } else {
+    //   this.setState({
+    //     important: false,
+    //   });
+    // }
+
+    this.setState(({ important }) => {
+      return {
+        important: !important,
+      }
+    });
+  }
+
+  markTaskAsDone = () => {
+    
+    this.setState(({ done }) => {
+      return {
+        done: !done,
+      }
+    });
   }
 
   render() {
     // this.props - include all properties
 
     let classNames = 'todo-list-item';
-    const { done } = this.state;
 
-    const { description, important } = this.props;
-
-    const style = {
-      color: important ? 'coral' : 'black',
-      fontWeight: important ? 'bold' : 'normal', 
-    };
+    const { done, important } = this.state;
+    const { description, onDeleted } = this.props;
 
     if (done) {
       classNames += ' done';
+    }
+
+    if (important) {
+      classNames += ' important';
     }
     
     return (
       <span className={ classNames }>
         <span 
           className="todo-list-item-label"
-          style={style}
-          onClick={ this.onLabelClick }>
+          onClick={ this.markTaskAsDone }>
             { description }
         </span>
 
         <button 
           type="button"
-          className="btn btn-outline-success btn-sm float-right">
+          className="btn btn-outline-success btn-sm float-right"
+          onClick={ this.markTaskAsImportant }>
             <i className="fa fa-exclamation" />
         </button>
 
         <button 
           type="button"
-          className="btn btn-outline-danger btn-sm float-right">
+          className="btn btn-outline-danger btn-sm float-right"
+          onClick={ onDeleted }>
             <i className="fa fa-trash-o" />
         </button>
       </span>
