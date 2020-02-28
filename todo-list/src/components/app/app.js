@@ -45,17 +45,17 @@ class App extends Component {
   }
 
   deleteItem = (key) => {
-    const { todoData } = this.state;
+    this.setState(({ todoData }) => {
+      const index = todoData.findIndex(item => item.key === key);
+      
+      const partBeforeIndex = todoData.slice(0, index);
+      const partAfterIndex = todoData.slice(index + 1);
 
-    const deletedItem = todoData.find((item) => item.key === key);
-    const index = todoData.indexOf(deletedItem);
+      const newTodoData = [...partBeforeIndex, ...partAfterIndex];
 
-    todoData.splice(index, 1);
-
-    this.setState(() => {
       return {
-        todoData: todoData,
-      }
+        todoData: newTodoData,
+      };
     });
   }
 
