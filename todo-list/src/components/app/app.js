@@ -6,32 +6,7 @@ import AppHeader from '../app-header';
 import SearchPanel from '../search-panel';
 import TodoList from '../todo-list';
 import ItemStatusFilter from '../item-status-filter';
-
-// const App = () => {
-
-//   const todoData = [
-//     { description: '11-00-AM Meeting', important: true, key: '_QFY_23' },
-//     { description: '13-00-PM Lunch', important: false, key: '_TNY_41' },
-//     { description: '15-00-PM Code review', important: true, key: '_MVB_19' },
-//     { description: '17-00-PM React + Redux', important: false, key: '_KZX_17' }
-//   ];
-
-//   const onDeleted = (key) => console.log('Deleted: ', key);
-
-//   return (
-//     <div className="todo-app">
-//       <AppHeader toDo={1} done={3}/>
-//       <div className="top-panel d-flex">
-//         <SearchPanel />
-//         <ItemStatusFilter />
-//       </div>
-
-//       <TodoList 
-//         todos={todoData}
-//         onDeleted={onDeleted} /> 
-//     </div>
-//   );
-// }
+import ItemAddForm from '../item-add-form';
 
 class App extends Component {
 
@@ -59,6 +34,27 @@ class App extends Component {
     });
   }
 
+  addItem = () => {
+    this.setState(({ todoData }) => {
+      const key = '_MZF_' + (Math.trunc(Math.random().toFixed(2) * 100));
+
+      console.log(key);
+
+      const newTodoData = [
+        ...todoData,
+        {
+          description: '18-00-PM A/B Testing',
+          important: true,
+          key: key,
+        }
+      ];
+
+      return {
+        todoData: newTodoData,
+      }
+    });
+  }
+
   render() {
     return (
       <div className="todo-app">
@@ -70,7 +66,9 @@ class App extends Component {
   
         <TodoList 
           todos={this.state.todoData}
-          onDeleted={this.deleteItem} /> 
+          onDeleted={this.deleteItem} />
+
+        <ItemAddForm onAdded={this.addItem} /> 
       </div>
     );
   }
