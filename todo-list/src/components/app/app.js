@@ -44,12 +44,19 @@ class App extends Component {
     ]
   }
 
-  onDeleted = (key) => {
+  deleteItem = (key) => {
     const { todoData } = this.state;
 
-    const deletedItem = todoData.find((item) => item.id === key);
+    const deletedItem = todoData.find((item) => item.key === key);
+    const index = todoData.indexOf(deletedItem);
 
-    console.log(deletedItem);
+    todoData.splice(index, 1);
+
+    this.setState(() => {
+      return {
+        todoData: todoData,
+      }
+    });
   }
 
   render() {
@@ -63,7 +70,7 @@ class App extends Component {
   
         <TodoList 
           todos={this.state.todoData}
-          onDeleted={this.onDeleted} /> 
+          onDeleted={this.deleteItem} /> 
       </div>
     );
   }
