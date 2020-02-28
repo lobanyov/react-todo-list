@@ -55,6 +55,14 @@ class App extends Component {
     });
   }
 
+  setItemAsImportant = (key) => {
+    console.log(`This is item with key ${key} is Important`);
+  }
+
+  setItemAsDone = (key) => {
+    console.log(`This is item with key ${key} is Done`);
+  }
+
   render() {
     return (
       <div className="todo-app">
@@ -65,8 +73,10 @@ class App extends Component {
         </div>
   
         <TodoList 
-          todos={this.state.todoData}
-          onDeleted={this.deleteItem} />
+          todos={ this.state.todoData }
+          onDeleted={ this.deleteItem }
+          onToggleImportant={ this.setItemAsImportant }
+          onToggleDone={ this.setItemAsDone } />
 
         <ItemAddForm onAdded={this.addItem} /> 
       </div>
