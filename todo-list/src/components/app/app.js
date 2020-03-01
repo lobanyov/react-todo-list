@@ -73,9 +73,9 @@ class App extends Component {
       const newItem = { ...oldItem, important: !oldItem.important };
 
       const newTodoData = [
-        ...partAfterIndex,
+        ...partBeforeIndex,
         newItem,
-        ...partBeforeIndex
+        ...partAfterIndex
       ];
       
       return {
@@ -95,9 +95,9 @@ class App extends Component {
       const newItem = { ...oldItem, done: !oldItem.done };
 
       const newTodoData = [
-        ...partAfterIndex,
+        ...partBeforeIndex,
         newItem,
-        ...partBeforeIndex
+        ...partAfterIndex
       ];
       
       return {
@@ -109,7 +109,7 @@ class App extends Component {
   render() {
     return (
       <div className="todo-app">
-        <AppHeader toDo={1} done={3} />
+        <AppHeader todos={ this.state.todoData } />
         <div className="top-panel d-flex">
           <SearchPanel />
           <ItemStatusFilter />
