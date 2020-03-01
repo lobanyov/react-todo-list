@@ -25,6 +25,22 @@ class App extends Component {
     }
   }
 
+  updateTodoData = (data, key, propName) => {
+    const index = data.findIndex(item => item.key === key);
+
+    const partBeforeIndex = data.slice(0, index);
+    const partAfterIndex = data.slice(index + 1);
+
+    const oldItem = data[index];
+    const newItem = { ...oldItem, [propName]: !oldItem[propName] };
+
+    return [
+      ...partBeforeIndex,
+      newItem,
+      ...partAfterIndex
+    ];
+  }
+
   deleteItem = (key) => {
     this.setState(({ todoData }) => {
       const index = todoData.findIndex(item => item.key === key);
@@ -64,44 +80,18 @@ class App extends Component {
 
   setItemAsImportant = (key) => {
     this.setState(({ todoData }) => {
-      const index = todoData.findIndex(item => item.key === key);
-      
-      const partBeforeIndex = todoData.slice(0, index);
-      const partAfterIndex = todoData.slice(index + 1);
-      
-      const oldItem = todoData[index];
-      const newItem = { ...oldItem, important: !oldItem.important };
 
-      const newTodoData = [
-        ...partBeforeIndex,
-        newItem,
-        ...partAfterIndex
-      ];
-      
       return {
-        todoData: newTodoData
+        todoData: this.updateTodoData(todoData, key, 'important')
       }
     });
   }
 
   setItemAsDone = (key) => {
     this.setState(({ todoData }) => {
-      const index = todoData.findIndex(item => item.key === key);
-      
-      const partBeforeIndex = todoData.slice(0, index);
-      const partAfterIndex = todoData.slice(index + 1);
-      
-      const oldItem = todoData[index];
-      const newItem = { ...oldItem, done: !oldItem.done };
-
-      const newTodoData = [
-        ...partBeforeIndex,
-        newItem,
-        ...partAfterIndex
-      ];
       
       return {
-        todoData: newTodoData
+        todoData: this.updateTodoData(todoData, key, 'done')
       }
     });
   }
