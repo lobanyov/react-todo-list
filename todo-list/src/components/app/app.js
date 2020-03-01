@@ -12,11 +12,17 @@ class App extends Component {
 
   state = {
     todoData: [
-      { description: '11-00-AM Meeting', important: true, key: '_QFY_23' },
-      { description: '13-00-PM Lunch', important: false, key: '_TNY_41' },
-      { description: '15-00-PM Code review', important: true, key: '_MVB_19' },
-      { description: '17-00-PM React + Redux', important: false, key: '_KZX_17' }
+      // this.createTodoItem('Any task', '_MVQ_20_')
     ]
+  }
+
+  createTodoItem(description, key) {
+    return {
+      description: description,
+      important: false,
+      done: false,
+      key: key,
+    }
   }
 
   deleteItem = (key) => {
@@ -43,8 +49,9 @@ class App extends Component {
       const newTodoData = [
         ...todoData,
         {
-          description: '18-00-PM A/B Testing',
-          important: true,
+          description: 'Any task',
+          important: false,
+          done: false,
           key: key,
         }
       ];
@@ -56,17 +63,53 @@ class App extends Component {
   }
 
   setItemAsImportant = (key) => {
-    console.log(`This is item with key ${key} is Important`);
+    this.setState(({ todoData }) => {
+      const index = todoData.findIndex(item => item.key === key);
+      
+      const partBeforeIndex = todoData.slice(0, index);
+      const partAfterIndex = todoData.slice(index + 1);
+      
+      const oldItem = todoData[index];
+      const newItem = { ...oldItem, important: !oldItem.important };
+
+      const newTodoData = [
+        ...partAfterIndex,
+        newItem,
+        ...partBeforeIndex
+      ];
+      
+      return {
+        todoData: newTodoData
+      }
+    });
   }
 
   setItemAsDone = (key) => {
-    console.log(`This is item with key ${key} is Done`);
+    this.setState(({ todoData }) => {
+      const index = todoData.findIndex(item => item.key === key);
+      
+      const partBeforeIndex = todoData.slice(0, index);
+      const partAfterIndex = todoData.slice(index + 1);
+      
+      const oldItem = todoData[index];
+      const newItem = { ...oldItem, done: !oldItem.done };
+
+      const newTodoData = [
+        ...partAfterIndex,
+        newItem,
+        ...partBeforeIndex
+      ];
+      
+      return {
+        todoData: newTodoData
+      }
+    });
   }
 
   render() {
     return (
       <div className="todo-app">
-        <AppHeader toDo={1} done={3}/>
+        <AppHeader toDo={1} done={3} />
         <div className="top-panel d-flex">
           <SearchPanel />
           <ItemStatusFilter />

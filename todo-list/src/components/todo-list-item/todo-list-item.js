@@ -8,10 +8,20 @@ const TodoListItem = (props) =>  {
 
   const { 
     description,
+    important,
+    done,
     onDeleted,
     onToggleImportant,
     onToggleDone,
   } = props;
+
+  if (done) {
+    classNames += ' done';
+  }
+
+  if (important) {
+    classNames += ' important';
+  }
   
   return (
     <span className={ classNames }>
