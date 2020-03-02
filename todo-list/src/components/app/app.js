@@ -56,7 +56,8 @@ class App extends Component {
     });
   }
 
-  addItem = () => {
+  addItem = (discr) => {
+
     this.setState(({ todoData }) => {
       const key = '_MZF_' + (Math.trunc(Math.random().toFixed(2) * 100));
 
@@ -65,7 +66,7 @@ class App extends Component {
       const newTodoData = [
         ...todoData,
         {
-          description: 'Any task',
+          description: discr,
           important: false,
           done: false,
           key: key,
