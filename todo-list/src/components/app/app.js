@@ -61,8 +61,6 @@ class App extends Component {
     this.setState(({ todoData }) => {
       const key = '_MZF_' + (Math.trunc(Math.random().toFixed(2) * 100));
 
-      console.log(key);
-
       const newTodoData = [
         ...todoData,
         {
@@ -77,6 +75,17 @@ class App extends Component {
         todoData: newTodoData,
       }
     });
+  }
+
+  searchItems = (text) => {
+    if (!text) return;
+
+    const { todoData } = this.state;
+
+    const copyTodoData = todoData.slice();
+    const desiredTodoData = copyTodoData.filter(item => item.description.indexOf(text) > -1);
+
+    console.log(desiredTodoData);
   }
 
   setItemAsImportant = (key) => {
@@ -98,11 +107,13 @@ class App extends Component {
   }
 
   render() {
+
     return (
       <div className="todo-app">
-        <AppHeader todos={ this.state.todoData } />
+        <AppHeader 
+          todos={ this.state.todoData } />
         <div className="top-panel d-flex">
-          <SearchPanel />
+          <SearchPanel onSearch={ this.searchItems } />
           <ItemStatusFilter />
         </div>
   

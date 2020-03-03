@@ -14,6 +14,12 @@ export default class ItemAddForm extends Component {
     });
   }
 
+  clearDescription = () => {
+    this.setState({
+      description: ''
+    });
+  };
+
   render() {
     const { onAdded } = this.props;
     const { description } = this.state;
@@ -21,12 +27,13 @@ export default class ItemAddForm extends Component {
     return (
       <div className="item-add-form d-flex">
         <input type="text"
+               value={ description }
                className="form-control"
                onChange={ this.changeDescription }
                placeholder="What needs to be done" />
         <button 
           className="btn btn-outline-secondary"
-          onClick={ () => { onAdded(description) }  } >
+          onClick={ () => { onAdded(description); this.clearDescription() }  } >
             Add Item
         </button>
       </div>
